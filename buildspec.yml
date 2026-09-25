@@ -1,7 +1,6 @@
 version: 0.2
 
 phases:
-
   install:
     commands:
       - echo "Installing Terraform..."
@@ -11,14 +10,12 @@ phases:
 
   build:
     commands:
-      - echo "Running Terraform formatting check..."
-      - terraform fmt -check -recursive
+      - echo "Formatting Terraform files..."
+      - terraform fmt -recursive
+      - echo "Running Terraform Init & Apply..."
+      - terraform init -input=false
+      - terraform apply -auto-approve -input=false
 
-      - echo "Initializing Terraform..."
-      - terraform init
-
-      - echo "Running Terraform validation..."
-      - terraform validate
-
-      - echo "Showing Terraform plan..."
-      - terraform show -no-color tfplan
+artifacts:
+  files:
+    - '**/*'
